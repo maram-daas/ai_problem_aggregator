@@ -1,5 +1,9 @@
 # Problem Aggregator
 
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688.svg)
+
 A lightweight web application that collects user-submitted problems, clusters similar issues using machine learning, and suggests automated solutions.
 
 ## Features
@@ -27,8 +31,8 @@ A lightweight web application that collects user-submitted problems, clusters si
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd problem-aggregator
+git clone https://github.com/maram-daas/ai_problem_aggregator.git
+cd ai_problem_aggregator
 ```
 
 ### 2. Set Up PostgreSQL Database
@@ -125,6 +129,23 @@ curl http://127.0.0.1:8000/api/problems
 curl http://127.0.0.1:8000/api/clusters
 ```
 
+## Try It Out
+
+Test the clustering with these sample problems:
+
+1. "I can't pay my rent this month"
+2. "Running out of money before payday"
+3. "Need help budgeting my finances"
+4. "My boss is micromanaging me constantly"
+5. "No work-life balance at my job"
+6. "Feeling burned out from overwork"
+7. "Having trouble sleeping due to stress"
+8. "Anxiety keeps me up at night"
+9. "My computer keeps crashing randomly"
+10. "Software won't install on my laptop"
+
+Submit at least 6-8 problems, then run clustering in the admin dashboard to see how the ML groups similar issues together!
+
 ## How It Works
 
 1. **Problem Collection**: Users submit problems via web form
@@ -132,15 +153,6 @@ curl http://127.0.0.1:8000/api/clusters
 3. **Clustering**: TF-IDF vectorization converts text to numerical features, MiniBatch K-Means groups similar problems
 4. **Solution Generation**: Rule-based system suggests solutions based on problem keywords
 5. **Display**: Admin dashboard shows clusters with representative problems and solutions
-
-## Security Notes
-
-⚠️ **Important**: Change the admin password in production!
-
-Edit `ADMIN_PASSWORD` in `problem_aggregator.py`:
-```python
-ADMIN_PASSWORD = "your_secure_password_here"
-```
 
 ## Configuration
 
@@ -201,12 +213,13 @@ pip install -r requirements.txt
 ## Project Structure
 
 ```
-problem-aggregator/
+ai_problem_aggregator/
 ├── problem_aggregator.py    # Main application file
 ├── requirements.txt          # Python dependencies
-├── README.md                 # This file
-└── venv/                     # Virtual environment (created during setup)
+└── README.md                 # This file
 ```
+
+Note: `venv/` folder is created locally when you run `python -m venv venv` and should not be committed to git.
 
 ## License
 
@@ -224,3 +237,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - Real-time clustering updates
 - Email notifications for cluster matches
 - Multi-language support
+- Docker deployment option
+- Cloud database support (AWS RDS, Google Cloud SQL)
+
+## Keywords
+
+`fastapi` `machine-learning` `clustering` `postgresql` `nlp` `scikit-learn` `text-analysis` `problem-solving` `tfidf` `kmeans`
