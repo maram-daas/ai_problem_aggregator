@@ -1,32 +1,112 @@
-# Problem Aggregator
+
+# AI Problem Aggregator (TinyLlama)
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-latest-009688.svg)
+![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-orange.svg)
 
-A lightweight web application that collects user-submitted problems, clusters similar issues using machine learning, and suggests automated solutions.
+A lightweight **AI-powered web application** that collects user-submitted problems, **clusters semantically similar issues using a local LLM (TinyLlama via Ollama)**, and generates **automated, human-readable solutions** — fully offline and free.
 
-## Features
+---
 
-- **Problem Submission**: Simple web form for users to submit problems (max 200 characters)
-- **Intelligent Clustering**: Uses TF-IDF vectorization and MiniBatch K-Means to group similar problems
-- **Automated Solutions**: Rule-based solution generation based on problem keywords
-- **Admin Dashboard**: View all problems, clusters, and generated solutions
-- **RESTful API**: Access problems and clusters programmatically
+## 🚀 Key Highlights
 
-## Tech Stack
+* ✅ **Runs fully locally** (no OpenAI / paid APIs)
+* 🤖 **AI-powered semantic clustering** using TinyLlama
+* 🧠 **Natural-language solutions** generated per cluster
+* 🔐 **Admin dashboard** with secure access
+* ⚡ **FastAPI + async PostgreSQL**
+* 🆓 100% free, open-source stack
 
-- **Backend**: FastAPI (Python)
-- **Database**: PostgreSQL
-- **ML**: scikit-learn (TF-IDF, K-Means clustering)
-- **Frontend**: Bootstrap 5, Jinja2 templates
+---
 
-## Prerequisites
+## ✨ Features
 
-- Python 3.8+
-- PostgreSQL 12+
+* **Problem Submission**
 
-## Installation
+  * Simple public form
+  * 10–200 character limit
+* **AI Semantic Clustering**
+
+  * Uses **TinyLlama** via **Ollama**
+  * Groups problems by meaning, not keywords
+  * Intelligent fallbacks if AI output fails
+* **AI-Generated Solutions**
+
+  * Short, actionable advice per cluster
+  * Root-cause–focused responses
+* **Admin Dashboard**
+
+  * View all problems
+  * Trigger AI clustering
+  * Inspect clusters and solutions
+* **REST API**
+
+  * Access problems and clusters programmatically
+
+---
+
+## 🧱 Tech Stack
+
+### Backend
+
+* **FastAPI**
+* **Uvicorn**
+* **AsyncPG**
+* **PostgreSQL**
+
+### AI / NLP
+
+* **Ollama** (local LLM runtime)
+* **TinyLlama** (lightweight language model)
+
+### Frontend
+
+* **Jinja2 templates**
+* **Vanilla HTML/CSS (no JS frameworks)**
+
+---
+
+## 📦 Prerequisites
+
+* Python **3.8+**
+* PostgreSQL **12+**
+* **Ollama installed locally**
+
+---
+
+## 🧠 Installing Ollama (Required)
+
+This project **requires Ollama** to run AI clustering.
+
+### 1️⃣ Install Ollama
+
+👉 [https://ollama.com/download](https://ollama.com/download)
+
+Verify installation:
+
+```bash
+ollama --version
+```
+
+### 2️⃣ Start Ollama Server
+
+```bash
+ollama serve
+```
+
+### 3️⃣ Pull TinyLlama Model
+
+```bash
+ollama pull tinyllama
+```
+
+> ℹ️ TinyLlama is fast, lightweight, and ideal for local AI workloads.
+
+---
+
+## 🛠 Installation
 
 ### 1. Clone the Repository
 
@@ -35,30 +115,23 @@ git clone https://github.com/maram-daas/ai_problem_aggregator.git
 cd ai_problem_aggregator
 ```
 
+---
+
 ### 2. Set Up PostgreSQL Database
 
-Install PostgreSQL if you haven't already, then create a database:
-
 ```bash
-# Start PostgreSQL service (Linux/Mac)
-sudo service postgresql start
-
-# Or on Mac with Homebrew
-brew services start postgresql
-
-# Create database
 psql -U postgres
 CREATE DATABASE problem_aggregator;
 \q
 ```
 
-**Update Database Credentials**: Edit the `DATABASE_URL` in `problem_aggregator.py`:
+Update database credentials in `problem_aggregator.py`:
 
 ```python
 DATABASE_URL = "postgresql://postgres:YOUR_PASSWORD@localhost/problem_aggregator"
 ```
 
-Replace `YOUR_PASSWORD` with your PostgreSQL password.
+---
 
 ### 3. Create Virtual Environment
 
@@ -66,180 +139,123 @@ Replace `YOUR_PASSWORD` with your PostgreSQL password.
 python -m venv venv
 ```
 
-### 4. Activate Virtual Environment
+Activate it:
 
-**On Linux/Mac:**
+**Linux / macOS**
+
 ```bash
 source venv/bin/activate
 ```
 
-**On Windows:**
+**Windows**
+
 ```bash
 venv\Scripts\activate
 ```
 
-### 5. Install Dependencies
+---
+
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Application
+---
 
-### Start the Server
+## ▶️ Running the Application
 
 ```bash
 python problem_aggregator.py
 ```
 
-The application will start at `http://127.0.0.1:8000`
+The app runs at:
 
-### Access the Application
+```
+http://127.0.0.1:8001
+```
 
-- **Public Submission Form**: http://127.0.0.1:8000
-- **Admin Dashboard**: http://127.0.0.1:8000/admin
-  - Username: (leave blank or enter anything)
-  - Password: `maramdaas`
+---
 
-## Usage Guide
+## 🌐 Access Points
 
-### Submitting Problems
+| Feature           | URL                                                                      |
+| ----------------- | ------------------------------------------------------------------------ |
+| Public Submission | [http://127.0.0.1:8001](http://127.0.0.1:8001)                           |
+| Admin Dashboard   | [http://127.0.0.1:8001/admin](http://127.0.0.1:8001/admin)               |
 
-1. Navigate to http://127.0.0.1:8000
-2. Enter a problem description (10-200 characters)
-3. Click "Submit Problem"
+### 🔐 Admin Login
 
-### Admin Dashboard
+* **Username**: anything
+* **Password**: `maramdaas`
 
-1. Go to http://127.0.0.1:8000/admin
-2. Log in with password: `maramdaas`
-3. Click "Run Clustering" to analyze submitted problems
-4. View clusters with suggested solutions
-5. Expand clusters to see all similar problems
+---
 
-### API Endpoints
+## 🧪 Sample Problems to Test Clustering
 
-**Get All Problems**
+Submit at least **2 problems**:
+
+Then click **“Run AI Clustering”** in the admin dashboard.
+
+---
+
+## 🧠 How It Works
+
+1. **User submits problem**
+2. **Problems stored in PostgreSQL**
+3. **Admin triggers clustering**
+4. **TinyLlama analyzes semantic meaning**
+5. **Problems grouped into clusters**
+6. **AI generates a concise solution per cluster**
+7. **Results displayed in admin UI**
+
+Fallback strategies ensure clustering still works even if AI output is imperfect.
+
+---
+
+## 🐛 Troubleshooting
+
+### ❌ Ollama Connection Error
+
+```
+Cannot connect to Ollama
+```
+
+✅ Fix:
+
 ```bash
-curl http://127.0.0.1:8000/api/problems
+ollama serve
 ```
 
-**Get All Clusters**
-```bash
-curl http://127.0.0.1:8000/api/clusters
-```
+---
 
-## Try It Out
+### ❌ No AI Clusters Generated
 
-Test the clustering with these sample problems:
+* Ensure `tinyllama` is pulled
+* Submit at least **2 problems**
 
-1. "I can't pay my rent this month"
-2. "Running out of money before payday"
-3. "Need help budgeting my finances"
-4. "My boss is micromanaging me constantly"
-5. "No work-life balance at my job"
-6. "Feeling burned out from overwork"
-7. "Having trouble sleeping due to stress"
-8. "Anxiety keeps me up at night"
-9. "My computer keeps crashing randomly"
-10. "Software won't install on my laptop"
+---
 
-Submit at least 6-8 problems, then run clustering in the admin dashboard to see how the ML groups similar issues together!
-
-## How It Works
-
-1. **Problem Collection**: Users submit problems via web form
-2. **Keyword Extraction**: System extracts relevant keywords using frequency analysis
-3. **Clustering**: TF-IDF vectorization converts text to numerical features, MiniBatch K-Means groups similar problems
-4. **Solution Generation**: Rule-based system suggests solutions based on problem keywords
-5. **Display**: Admin dashboard shows clusters with representative problems and solutions
-
-## Configuration
-
-### Adjust Clustering Parameters
-
-In `problem_aggregator.py`, modify the `perform_lightweight_clustering` function:
-
-```python
-def perform_lightweight_clustering(problems: List[Problem], max_clusters: int = 15):
-    # Change max_clusters to adjust maximum number of problem groups
-```
-
-### Modify Solution Templates
-
-Edit the `solutions` dictionary in `generate_simple_solution()`:
-
-```python
-solutions = {
-    'money': "Your custom financial advice...",
-    'work': "Your custom career advice...",
-    # Add more categories
-}
-```
-
-## Troubleshooting
-
-### Database Connection Error
+### ❌ Database Errors
 
 ```
 asyncpg.exceptions.InvalidPasswordError
 ```
 
-**Solution**: Update the `DATABASE_URL` with correct PostgreSQL credentials.
+✅ Fix: Update `DATABASE_URL`
 
-### Port Already in Use
+---
 
-```
-ERROR: [Errno 48] Address already in use
-```
-
-**Solution**: Change the port in the last line of `problem_aggregator.py`:
-```python
-uvicorn.run(app, host="127.0.0.1", port=8001)  # Changed from 8000
-```
-
-### Import Errors
-
-```
-ModuleNotFoundError: No module named 'fastapi'
-```
-
-**Solution**: Ensure virtual environment is activated and dependencies are installed:
-```bash
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-pip install -r requirements.txt
-```
-
-## Project Structure
-
-```
-ai_problem_aggregator/
-├── problem_aggregator.py    # Main application file
-├── requirements.txt          # Python dependencies
-└── README.md                 # This file
-```
-
-Note: `venv/` folder is created locally when you run `python -m venv venv` and should not be committed to git.
-
-## License
+## 📄 License
 
 MIT License
 
-## Contributing
+---
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+## 🤝 Contributing
 
-## Future Enhancements
+This is an experimental learning project I built in my free time to explore how AI can be integrated into a real backend system. It is not optimized and is intended purely for learning purposes.
 
-- User authentication system
-- Export clusters as CSV/PDF
-- Integration with GPT for better solution generation
-- Real-time clustering updates
-- Email notifications for cluster matches
-- Multi-language support
-- Docker deployment option
-- Cloud database support (AWS RDS, Google Cloud SQL)
+Feedback and suggestions are highly appreciated. <3
 
-## Keywords
-
-`fastapi` `machine-learning` `clustering` `postgresql` `nlp` `scikit-learn` `text-analysis` `problem-solving` `tfidf` `kmeans`
+---
